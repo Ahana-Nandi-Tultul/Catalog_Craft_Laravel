@@ -52,7 +52,9 @@
                                             <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href = "{{route('product.edit', $product -> id)}}" type="button" class="btn btn-primary" style="background-color: black">Edit</a>
-                                                <button type="button" class="btn btn-primary" style="background-color: red">Show</button>
+                                                <button type="button" class="btn"
+                                                data-bs-toggle="modal" data-bs-target="#showModal" 
+                                                style="background-color: red; color:white;" onclick="fetchAndPopulateData({{$product->id}})">Show</button>
                                                 <button type="button" class="btn btn-primary" style="background-color: green">Delete</button>
                                                 </div>
                                             </td>
@@ -65,24 +67,48 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="showModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBodyContent">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: black; color:white;">Close</button>
+            </div>
+            </div>
+        </div>
+        </div>
 
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            fetch('/api/products')
-                .then(response => response.json())
-                .then(data => {
-                    const productsTableBody = document.getElementById('productsTableBody');
-                    data.products.forEach(product => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${product.id}</td>
-                            <td>${product.name}</td>
-                            <td>${product.price}</td>
-                        `;
-                        productsTableBody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('Error fetching products:', error));
-        });
-    </script> -->
+        <script>
+    function fetchAndPopulateData(productId) {
+        
+        fetch(`/products/${productId}`) 
+            .then(response => response.json())
+            .then(data => {
+                
+                populateModal(data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    function populateModal(data) {
+        document.getElementById('showModalLabel').textContent = data.product.name; 
+        document.getElementById('modalBodyContent').innerHTML = formatDataForModal(data);
+
+    }
+
+    function formatDataForModal(data) {
+        return `
+            <p>Name: ${data.product.name}</p>
+            <p>Price: ${data.product.price}</p>
+            <p>Quantity: ${data.product.quantity}</p>
+           
+        `;
+    }
+</script>
 </x-app-layout>

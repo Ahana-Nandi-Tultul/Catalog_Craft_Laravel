@@ -60,4 +60,10 @@ class ProductController extends Controller
             return redirect()->route('product.index')->withError($e->getMessage());
         }
     }
+
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        return response()->json(['product' => $product]);
+    }
 }
