@@ -55,7 +55,12 @@
                                                 <button type="button" class="btn"
                                                 data-bs-toggle="modal" data-bs-target="#showModal" 
                                                 style="background-color: red; color:white;" onclick="fetchAndPopulateData({{$product->id}})">Show</button>
-                                                <button type="button" class="btn btn-primary" style="background-color: green">Delete</button>
+                                                    <form action="{{route('product.delete', $product->id)}}" method="POST" style="display:inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" onclick="return confirm('Are you sure?')"
+                                                            class="btn" style="background-color: green; color: white;">Delete</button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>

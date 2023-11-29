@@ -61,9 +61,23 @@ class ProductController extends Controller
         }
     }
 
-    public function show($id)
+    function show($id)
     {
         $product = Product::findOrFail($id);
         return response()->json(['product' => $product]);
+    }
+
+    function delete($id)
+    {
+        try
+        {
+
+            $product = Product::findOrFail($id)->delete();
+            return redirect()->route('product.index')->withSuccess('Product is deleted');
+        }
+        catch(Exception $e)
+        {
+            return redirect()->route('product.index')->withError($e->getMessage());
+        }
     }
 }
