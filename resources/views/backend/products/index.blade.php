@@ -9,6 +9,19 @@
             </a>
         </div>
      </x-slot>
+        @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> {{session('success')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{session('error')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -16,10 +29,12 @@
                 <div class="p-6 text-gray-900">
                         <div class="container mt-4 overflow-auto">
                             <h2>Products</h2>
+                            <a type="button" href="{{route('product.create')}}" class="btn" style="background-color: blue; color: white;
+                            float:right;">Add A Product</a>
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Name</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
@@ -27,18 +42,21 @@
                                     </tr>
                                 </thead>
                                 <tbody id="productsTableBody">
+                                    @php $ind = 1; @endphp
                                     @foreach($products as $product)
-                                        <td>{{$product->id}}</td>
-                                        <td>{{$product->name}}</td>
-                                        <td>{{$product->price}}</td>
-                                        <td>{{$product->quantity}}</td>
-                                        <td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button type="button" class="btn btn-primary" style="background-color: black">Edit</button>
-                                            <button type="button" class="btn btn-primary" style="background-color: red">Show</button>
-                                            <button type="button" class="btn btn-primary" style="background-color: green">Delete</button>
-                                            </div>
-                                        </td>
+                                        <tr>
+                                            <td>{{$ind++}}</td>
+                                            <td>{{$product->name}}</td>
+                                            <td>{{$product->price}}</td>
+                                            <td>{{$product->quantity}}</td>
+                                            <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-primary" style="background-color: black">Edit</button>
+                                                <button type="button" class="btn btn-primary" style="background-color: red">Show</button>
+                                                <button type="button" class="btn btn-primary" style="background-color: green">Delete</button>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
