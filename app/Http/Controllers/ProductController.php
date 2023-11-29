@@ -33,4 +33,31 @@ class ProductController extends Controller
             return redirect()->route('product.index')->withError($e->getMessage());
         }
     }
+
+    function edit($id)
+    {
+        try
+        {
+            $data = Product::find($id);
+            return view('backend.products.edit', compact('data'));
+        }
+        catch(Exception $e)
+        {
+            return redirect()->route('product.index')->withError($e->getMessage());
+        }
+    }
+
+    function update(ProductRequest $request, $id)
+    {
+        try
+        {
+            $data= $request->except('_token');
+            Product::where('id', $id)->update($data);
+            return redirect()->route('product.index')->withSuccess('Product is updated');
+        }
+        catch(Exception $e)
+        {
+            return redirect()->route('product.index')->withError($e->getMessage());
+        }
+    }
 }

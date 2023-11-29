@@ -17,13 +17,13 @@
                 <a type="button" href="{{route('product.index')}}" class="btn" style="background-color: blue; color: white;
                             float:right;">Products</a>
                     <div class="container mt-4 overflow-auto">
-                        <h2>Add A Product</h2>
-                            <form class="my-3" action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+                        <h2>Edit Product</h2>
+                            <form class="my-3" action="{{route('product.update', $data->id)}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Product Name*</label>
                                     <input type="text" class="form-control" id="name" name = "name"
-                                        placeholder="name" value="{{old('name')}}">
+                                    value="{{$data->name}}">
                                         @error('name')
                                             <span class="text-danger"> {{ $message }}</span>
                                         @enderror
@@ -33,7 +33,7 @@
                                             <div class="mb-3">
                                                 <label for="name" class="form-label">Product Quantity*</label>
                                                 <input type="number" class="form-control" id="quantity" name = "quantity"
-                                                placeholder="quantity" value="{{old('quantity')}}">
+                                                value="{{$data->quantity}}">
                                                 @error('quantity')
                                                     <span class="text-danger"> {{ $message }}</span>
                                                 @enderror
@@ -43,7 +43,7 @@
                                             <div class="mb-3">
                                                 <label for="price" class="form-label">Price*</label>
                                                 <input type="number" class="form-control" id="price" 
-                                                placeholder="price" name="price" value="{{old('price')}}">
+                                                value="{{$data->price}}" name="price">
                                                 @error('price')
                                                     <span class="text-danger"> {{ $message }}</span>
                                                 @enderror
@@ -53,7 +53,7 @@
 
                                         <div class="d-grid gap-2">
                                             <button class="btn" type="submit" style="background-color: green; 
-                                            color: white;">Submit</button>
+                                            color: white;">Edit</button>
                                         </div>
                                     </div>
                                 </div>

@@ -51,7 +51,7 @@
                                             <td>{{$product->quantity}}</td>
                                             <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-primary" style="background-color: black">Edit</button>
+                                                <a href = "{{route('product.edit', $product -> id)}}" type="button" class="btn btn-primary" style="background-color: black">Edit</a>
                                                 <button type="button" class="btn btn-primary" style="background-color: red">Show</button>
                                                 <button type="button" class="btn btn-primary" style="background-color: green">Delete</button>
                                                 </div>
